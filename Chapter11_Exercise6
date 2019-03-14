@@ -1,0 +1,62 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity exercise6 is
+port(CLK,X: in std_logic;
+Z1,Z2: out std_logic);
+end exercise6;
+
+architecture Behavioral of exercise6 is
+type state_type is (ST0,ST1,ST2,ST3);
+signal PS,NS : state_type;
+
+begin
+
+sync_proc: process(CLK,NS)
+begin
+if rising_edge(CLK) then PS <= NS;
+end if;
+end process;
+
+comb_proc: process(PS,X)
+begin
+case PS is
+
+when ST0 => 
+Z1 <= '1';          
+if X = '1' then Z2 <= '0'; NS <= ST0;
+else Z2 <= '0'; NS <= ST2;
+end if;
+        
+when ST1 =>
+Z1 <= '0';
+if X = '1' then Z2 <= '0'; NS <= ST1;
+else Z2 <= '0'; NS <= ST3;
+end if;
+
+when ST2 =>
+Z1 <= '1';
+if X = '0' then Z2 <= '0'; NS <= ST1;
+elsif X = '1' then Z2 <= '0'; NS <= ST0;
+end if;
+    
+when ST3 =>
+Z1 <= '0';
+if X = '1' then Z2 <= '0'; NS <= ST1; 
+else Z2 <= '1'; NS <= ST0;
+end if;
+
+when others =>     
+Z1 <= '1'; NS <= ST0;
+        
+end case;
+end process;
+
+with PS select Z1 <= 
+'1' when ST0,
+'0' when ST1,
+'1' when ST2,
+'0' when ST3,
+'0' when others; 
+
+end Behavioral;
