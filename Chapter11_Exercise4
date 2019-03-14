@@ -25,16 +25,19 @@ begin
 case PS is
 
 when  ST0 =>
+Z1 <= '0';
 if X1 = '1' then Z2 <= '1'; NS <= ST1;
 else Z2 <= '0'; NS <= ST2; 
 end if;
 
 when ST1 =>
+Z1 <= '1';
 if X2 = '1' then Z2 <= '0'; NS <= ST0; 
 else Z2 <= '1'; NS <= ST2; 
 end if;
 
 when ST2 =>
+Z1 <= '1';
 if X1 = '1' then Z2 <= '1'; NS <= ST1; 
 else Z2 <= '1'; NS <= ST0; 
 end if;
