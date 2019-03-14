@@ -36,8 +36,8 @@ end if;
 
 when ST2 =>
 Z1 <= '1';
-if X = '0' then Z2 <= '0'; NS <= ST1;
-elsif X = '1' then Z2 <= '0'; NS <= ST0;
+if X = '1' then Z2 <= '0'; NS <= ST0; 
+else Z2 <= '0'; NS <= ST1;
 end if;
     
 when ST3 =>
