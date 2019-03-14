@@ -1,0 +1,53 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity exercise4 is
+port(CLK,INIT,X1,X2: in std_logic;
+Z1,Z2: out std_logic);
+end exercise4;
+
+architecture Behavioral of exercise4 is
+type state_type is (ST0,ST1,ST2); 
+signal PS,NS: state_type;
+
+begin
+
+sync_proc: process(CLK,NS)
+begin
+if INIT = '1' then PS <= ST0;
+elsif (rising_edge(CLK)) then PS <= NS;
+end if;
+end process;
+
+comb_proc: process(PS,X1,X2)
+begin
+
+case PS is
+
+when  ST0 =>
+if X1 = '1' then Z2 <= '1'; NS <= ST1;
+else Z2 <= '0'; NS <= ST2; 
+end if;
+
+when ST1 =>
+if X2 = '1' then Z2 <= '0'; NS <= ST0; 
+else Z2 <= '1'; NS <= ST2; 
+end if;
+
+when ST2 =>
+if X1 = '1' then Z2 <= '1'; NS <= ST1; 
+else Z2 <= '1'; NS <= ST0; 
+end if;
+
+when others => 
+Z2 <= '0'; NS <= ST0;
+end case;
+end process;
+
+with PS select Z1 <= 
+'0' when ST0,
+'1' when ST1,
+'1' when ST2,
+'0' when others;
+ 
+end Behavioral;
