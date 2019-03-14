@@ -40,7 +40,7 @@ else Z2 <= '1'; NS <= ST0;
 end if;
 
 when others => 
-Z2 <= '0'; NS <= ST0;
+Z1 <= '0'; Z2 <= '0'; NS <= ST0;
 end case;
 end process;
 
