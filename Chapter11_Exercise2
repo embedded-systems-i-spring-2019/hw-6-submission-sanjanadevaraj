@@ -24,9 +24,8 @@ begin
 case PS is
 
 when ST0 => 
-Z <= '0';
-if X1 = '1' then NS <= ST2;
-else NS <= ST0;
+if X1 = '1' then Z <= '0'; NS <= ST2;
+else Z <= '0'; NS <= ST0;
 end if;
 
 when ST1 =>
@@ -35,13 +34,12 @@ else Z <= '1'; NS <= ST0;
 end if;       
 
 when ST2 =>
-Z <= '0';
-if X2 = '1' then NS <= ST1;
-else NS <= ST0;
+if X2 = '1' then Z <= '0'; NS <= ST1;
+else  Z <= '1'; NS <= ST0;
 end if;
     
 when others =>  
-NS <= ST0;Z <= '0';
+Z <= '0'; NS <= ST0;
 
 end case;
 end process;
