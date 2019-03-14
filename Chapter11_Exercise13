@@ -40,7 +40,7 @@ else CS <= '0'; RD <= '0'; NS <= ST0;
 end if;
 
 when others =>     
-CS <= '0'; RD <= '0'; NS <= ST1;
+CS <= '0'; RD <= '0'; NS <= ST0;
         
 end case;
 end process;
